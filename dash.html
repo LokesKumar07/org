@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="dash.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Welcome, <span id="fullName"></span>!</h1>
+        <p><strong>Username:</strong> <span id="username"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+        <p><strong>Vehicle Number:</strong> <span id="vehicleNumber"></span></p>
+        <p><strong>Phone Number:</strong> <span id="phoneNumber"></span></p>
+        <button id="logout">Logout</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const currentUserEmail = localStorage.getItem("currentUser");
+            if (!currentUserEmail) {
+                window.location.href = "index.html";
+                return;
+            }
+            
+            const userData = JSON.parse(localStorage.getItem(currentUserEmail));
+            document.getElementById("fullName").textContent = userData.fullName;
+            document.getElementById("username").textContent = userData.username;
+            document.getElementById("email").textContent = userData.email;
+            document.getElementById("vehicleNumber").textContent = userData.vehicleNumber;
+            document.getElementById("phoneNumber").textContent = userData.phoneNumber;
+        
+            document.getElementById("logout").addEventListener("click", () => {
+                localStorage.removeItem("currentUser");
+                window.location.href = "index.html";
+            });
+        });
+    </script>
+</body>
+</html>
